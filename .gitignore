@@ -1,0 +1,13 @@
+# Sensitive files — never commit API keys
+*.env
+*.secret
+
+# Node modules
+node_modules/
+package-lock.json
+bun.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+__pycache__/

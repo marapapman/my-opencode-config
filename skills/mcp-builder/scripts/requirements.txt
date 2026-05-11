@@ -1,0 +1,2 @@
+# Install either: openai>=1.0.0 or anthropic>=0.39.0
+mcp>=1.1.0
