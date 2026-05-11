@@ -15,8 +15,7 @@ description: >-
         assistant: "This requires the fallback-solver agent to correct the previous approaches and solve the problem directly."
       </example>
 mode: subagent
-model: zenmux/anthropic/claude-opus-4.6
-reasoningEffort: xhigh
+model: zenmux/anthropic/claude-opus-4.7
 ---
 
 
