@@ -1,6 +1,6 @@
 # my-opencode-config
 
-Opencode configuration: 14 skills (de-Claudified from anthropics/skills), agent definitions, and MCP servers.
+Opencode configuration: 14 skills (de-Claudified from anthropics/skills) and agent definitions.
 
 ## Contents
 
@@ -9,7 +9,6 @@ Opencode configuration: 14 skills (de-Claudified from anthropics/skills), agent 
 | Skills | `skills/` | 14 general-purpose skills (document processing, web testing, MCP building, design, etc.) |
 | Opencode config | `config/opencode.json` | Main config with Exa search MCP |
 | Agent defs | `config/agents/` | 5 specialized agent instructions (build, precision-specialist, quick-scanner, fallback-solver, multimodal-describer) |
-| MCP servers | `config/mcp.json` | CodeBuddy-compatible MCP servers (web search, reader, Z.AI) |
 
 ## Skills list
 
@@ -50,17 +49,15 @@ The installer copies:
 - `skills/` → `~/.agents/skills/`
 - `config/opencode.json` → `~/.config/opencode/opencode.json`
 - `config/agents/*.md` → `~/.config/opencode/agents/`
-- `config/mcp.json` → `~/.codebuddy/mcp.json`
 
 Existing config files are backed up to `*.bak` before overwriting.
 
 ### Step 3: Set API keys
 
-Edit these two files and replace placeholders with actual keys:
+Edit the config and replace the placeholder with your actual key:
 
 ```
 ~/.config/opencode/opencode.json   →  replace "YOUR_EXA_API_KEY"
-~/.codebuddy/mcp.json              →  replace "YOUR_Z_AI_API_KEY"
 ```
 
 ### Step 4: Restart opencode
@@ -78,8 +75,4 @@ cp -r skills/* ~/.agents/skills/
 mkdir -p ~/.config/opencode/agents
 cp config/opencode.json ~/.config/opencode/opencode.json
 cp config/agents/*.md ~/.config/opencode/agents/
-
-# MCP config
-mkdir -p ~/.codebuddy
-cp config/mcp.json ~/.codebuddy/mcp.json
 ```
