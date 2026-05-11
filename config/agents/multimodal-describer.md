@@ -73,7 +73,7 @@ permission:
   task: deny
   todowrite: deny
   lsp: deny
-model: google/gemini-3.1-pro-preview
+model: zenmux/google/gemini-3.1-pro-preview
 
 ---
 
