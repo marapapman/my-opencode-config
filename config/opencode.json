@@ -18,6 +18,16 @@
             "headers": {
                 "x-api-key": "YOUR_EXA_API_KEY"
             }
+        },
+        "zenmux-mcp": {
+            "type": "local",
+            "command": ["YOUR_REPO_PATH/mcp/zenmux-mcp/.venv/bin/python", "YOUR_REPO_PATH/mcp/zenmux-mcp/server.py"],
+            "enabled": true,
+            "environment": {
+                "ZENMUX_API_KEY": "YOUR_ZENMUX_API_KEY",
+                "ZENMUX_IMAGE_DIR": "/tmp/opencode/zenmux-images"
+            },
+            "timeout": 120000
         }
     },
     "permission": {

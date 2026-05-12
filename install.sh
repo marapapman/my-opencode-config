@@ -11,6 +11,7 @@ AGENTS_SRC="$REPO_DIR/config/agents"
 AGENTS_DST="$HOME/.config/opencode/agents"
 OPENCODE_SRC="$REPO_DIR/config/opencode.json"
 OPENCODE_DST="$HOME/.config/opencode/opencode.json"
+ZENMUX_MCP_DIR="$REPO_DIR/mcp/zenmux-mcp"
 echo "=== my-opencode-config installer ==="
 echo ""
 
@@ -35,8 +36,24 @@ if [ -f "$OPENCODE_DST" ]; then
     cp "$OPENCODE_DST" "$(dirname "$OPENCODE_DST")/opencode.json.bak"
 fi
 cp "$OPENCODE_SRC" "$OPENCODE_DST"
+if [ -d "$ZENMUX_MCP_DIR" ]; then
+    python3 -m venv "$ZENMUX_MCP_DIR/.venv"
+    "$ZENMUX_MCP_DIR/.venv/bin/python" -m pip install -r "$ZENMUX_MCP_DIR/requirements.txt"
+    python3 - "$OPENCODE_DST" "$REPO_DIR" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+config_path = Path(sys.argv[1])
+repo_dir = sys.argv[2]
+config = json.loads(config_path.read_text())
+command = config["mcp"]["zenmux-mcp"]["command"]
+config["mcp"]["zenmux-mcp"]["command"] = [item.replace("YOUR_REPO_PATH", repo_dir) for item in command]
+config_path.write_text(json.dumps(config, indent=4, ensure_ascii=False) + "\n")
+PY
+fi
 echo "  Config installed to $OPENCODE_DST"
-echo "  ⚠  Edit $OPENCODE_DST and replace YOUR_EXA_API_KEY with your actual key"
+echo "  ⚠  Edit $OPENCODE_DST and replace YOUR_EXA_API_KEY / YOUR_ZENMUX_API_KEY"
 
 # ── 3. Install agent definitions ───────────────────────────────────
 echo "[3/3] Installing agent definitions..."
@@ -55,5 +72,5 @@ echo ""
 echo "=== Installation complete ==="
 echo ""
 echo "Next steps:"
-echo "  1. Edit ~/.config/opencode/opencode.json — set YOUR_EXA_API_KEY"
+echo "  1. Edit ~/.config/opencode/opencode.json — set YOUR_EXA_API_KEY and YOUR_ZENMUX_API_KEY"
 echo "  2. Restart opencode"

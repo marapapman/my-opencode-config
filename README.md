@@ -1,14 +1,15 @@
 # my-opencode-config
 
-Opencode configuration: 14 skills (de-Claudified from anthropics/skills) and agent definitions.
+Opencode configuration: 14 skills (de-Claudified from anthropics/skills), agent definitions, and MCP servers.
 
 ## Contents
 
 | Component | Location | Description |
 |-----------|----------|-------------|
 | Skills | `skills/` | 14 general-purpose skills (document processing, web testing, MCP building, design, etc.) |
-| Opencode config | `config/opencode.json` | Main config with Exa search MCP |
+| Opencode config | `config/opencode.json` | Main config with Exa search MCP and ZenMux image MCP |
 | Agent defs | `config/agents/` | 5 specialized agent instructions (build, precision-specialist, quick-scanner, fallback-solver, multimodal-describer) |
+| MCP servers | `mcp/` | Local MCP servers, including ZenMux image generation/editing |
 
 ## Skills list
 
@@ -49,15 +50,17 @@ The installer copies:
 - `skills/` → `~/.agents/skills/`
 - `config/opencode.json` → `~/.config/opencode/opencode.json`
 - `config/agents/*.md` → `~/.config/opencode/agents/`
+- `mcp/zenmux-mcp/.venv` is created and dependencies are installed
 
 Existing config files are backed up to `*.bak` before overwriting.
 
 ### Step 3: Set API keys
 
-Edit the config and replace the placeholder with your actual key:
+Edit the config and replace the placeholders with your actual keys:
 
 ```
 ~/.config/opencode/opencode.json   →  replace "YOUR_EXA_API_KEY"
+~/.config/opencode/opencode.json   →  replace "YOUR_ZENMUX_API_KEY"
 ```
 
 ### Step 4: Restart opencode
@@ -75,4 +78,8 @@ cp -r skills/* ~/.agents/skills/
 mkdir -p ~/.config/opencode/agents
 cp config/opencode.json ~/.config/opencode/opencode.json
 cp config/agents/*.md ~/.config/opencode/agents/
+
+# ZenMux MCP
+python3 -m venv mcp/zenmux-mcp/.venv
+mcp/zenmux-mcp/.venv/bin/python -m pip install -r mcp/zenmux-mcp/requirements.txt
 ```
